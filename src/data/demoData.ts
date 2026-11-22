@@ -1,0 +1,171 @@
+import type { Restaurant } from '../types'
+
+export const DEMO_RESTAURANTS_MAP: Record<string, Restaurant[]> = {
+  default: [
+    {
+      id: 'demo-1',
+      name: 'Rodic’s Diner',
+      cuisine: 'Filipino / Silog & All-Day Breakfast',
+      pricePerPerson: '₱160–₱230',
+      distanceNote: 'Near Katipunan Ave / UP Campus, ~4 min walk',
+      mustOrderDish: 'Famous Shredded Beef Tapa with Sunny Side Up Egg & Fried Rice',
+      wittyPitch: 'Ang pambansang pampagising ng mga puyat; matamis, maalat, at unlimited comfort.',
+      mapsSearchQuery: 'Rodics Diner Katipunan Quezon City',
+    },
+    {
+      id: 'demo-2',
+      name: 'Silantro Fil-Mex Cantina',
+      cuisine: 'Fil-Mex / Tacos & Burritos',
+      pricePerPerson: '₱280–₱420',
+      distanceNote: 'Near Esteban Abada St, Katipunan, ~6 min walk',
+      mustOrderDish: 'Beef Nachos with Guacamole & Unlimited Salsa dips',
+      wittyPitch: 'Bundok ng nachos na sasapaw sa lahat ng drama sa group chat.',
+      mapsSearchQuery: 'Silantro Fil-Mex Cantina Katipunan',
+    },
+    {
+      id: 'demo-3',
+      name: 'Gino’s Brick Oven Pizza',
+      cuisine: 'Artisanal Italian / Pizza & Pasta',
+      pricePerPerson: '₱380–₱550',
+      distanceNote: 'Katipunan Ave 3rd Floor, ~5 min walk',
+      mustOrderDish: 'SMEGG Pizza drizzled with Spicy Honey',
+      wittyPitch: 'Crispy burrata crust plus spicy honey that will instantly heal your broken heart.',
+      mapsSearchQuery: 'Ginos Brick Oven Pizza Katipunan',
+    },
+    {
+      id: 'demo-4',
+      name: 'Kenji Tei Ramen House',
+      cuisine: 'Japanese / Ramen & Rice Bowls',
+      pricePerPerson: '₱320–₱480',
+      distanceNote: 'Along Esteban Abada / Rosa Alvero, ~7 min walk',
+      mustOrderDish: 'Spicy Chashu Miso Ramen & Gyoza Combo',
+      wittyPitch: 'Mainit na sabaw na gigising sa diwa mo pagkatapos ng toxic shift.',
+      mapsSearchQuery: 'Kenji Tei Ramen House Katipunan',
+    },
+    {
+      id: 'demo-5',
+      name: 'Sweet Inspirations',
+      cuisine: 'Filipino-American Comfort / All-Day Mongolian & Desserts',
+      pricePerPerson: '₱350–₱500',
+      distanceNote: 'Katipunan Ave opposite Ateneo, ~3 min walk',
+      mustOrderDish: 'Create-Your-Own Mongolian Rice Bowl',
+      wittyPitch: 'Unlimited choices para sa kaibigang 20 minutes bago makapag-decide ng kakainin.',
+      mapsSearchQuery: 'Sweet Inspirations Katipunan',
+    },
+  ],
+  bgc: [
+    {
+      id: 'bgc-1',
+      name: 'Manam Comfort Filipino',
+      cuisine: 'Modern Filipino',
+      pricePerPerson: '₱350–₱550',
+      distanceNote: 'Bonifacio High Street, Taguig',
+      mustOrderDish: 'House Crispy Sisig & Watermelon Sinigang',
+      wittyPitch: 'Sizzling sisig na kasing lutong ng tawa ng barkada niyo.',
+      mapsSearchQuery: 'Manam Comfort Filipino BGC Taguig',
+    },
+    {
+      id: 'bgc-2',
+      name: 'Mendokoro Ramenba',
+      cuisine: 'Japanese Ramen',
+      pricePerPerson: '₱480–₱650',
+      distanceNote: 'BGC Corporate Center, Taguig',
+      mustOrderDish: 'Shoyu Tonkotsu Ramen with Extra Chashu',
+      wittyPitch: 'Sobrang concentrated ng broth, bawal magdaldalan habang humihigop.',
+      mapsSearchQuery: 'Mendokoro Ramenba BGC Taguig',
+    },
+    {
+      id: 'bgc-3',
+      name: 'Recovery Food',
+      cuisine: 'Asian Comfort / Rice Bowls',
+      pricePerPerson: '₱220–₱350',
+      distanceNote: '31st Street BGC, 24/7 Spot',
+      mustOrderDish: 'Hey Jude’s Paksilog & Tapa de Morning',
+      wittyPitch: 'Pang-recover sa puyat at alak; lunas sa lahat ng pagod sa corporate life.',
+      mapsSearchQuery: 'Recovery Food BGC Taguig',
+    },
+    {
+      id: 'bgc-4',
+      name: 'Din Tai Fung',
+      cuisine: 'Taiwanese / Dim Sum',
+      pricePerPerson: '₱450–₱700',
+      distanceNote: 'C1 Bonifacio High Street, Taguig',
+      mustOrderDish: 'Pork Xiao Long Bao & Truffle Fried Rice',
+      wittyPitch: 'Dumplings na sasabog sa bibig mo; certified high quality.',
+      mapsSearchQuery: 'Din Tai Fung BGC Taguig',
+    },
+    {
+      id: 'bgc-5',
+      name: 'Ooma Contemporary Japanese',
+      cuisine: 'Creative Japanese Maki & Rice Bowls',
+      pricePerPerson: '₱400–₱650',
+      distanceNote: 'Bonifacio High Street Central, Taguig',
+      mustOrderDish: 'Truffle Hanger Steak & Salmon Skin Aburi Maki',
+      wittyPitch: 'Level up Japanese cravings na may sipa ng truffle at aburi torched goodness.',
+      mapsSearchQuery: 'Ooma BGC Taguig',
+    },
+  ],
+  makati: [
+    {
+      id: 'mkt-1',
+      name: 'El Chupacabra',
+      cuisine: 'Street Mex / Tacos & Skewers',
+      pricePerPerson: '₱250–₱400',
+      distanceNote: 'Felipe St, Poblacion, Makati',
+      mustOrderDish: 'Carne Asada Street Tacos & Grilled BBQ Pork Skewers',
+      wittyPitch: 'Poblacion vibes na masarap ang pulutan kahit walang alak.',
+      mapsSearchQuery: 'El Chupacabra Poblacion Makati',
+    },
+    {
+      id: 'mkt-2',
+      name: 'Khao Khai Thai Chicken House',
+      cuisine: 'Isan Thai Street Food',
+      pricePerPerson: '₱280–₱450',
+      distanceNote: 'P. Burgos / Poblacion, Makati',
+      mustOrderDish: 'Gai Yang Roasted Chicken with Sticky Rice & Jaew Sauce',
+      wittyPitch: 'Authentic Thai flavor na may asim-anghang na magpapapawis sa noo mo.',
+      mapsSearchQuery: 'Khao Khai Thai Chicken House Poblacion Makati',
+    },
+    {
+      id: 'mkt-3',
+      name: 'Alamat Filipino Pub & Deli',
+      cuisine: 'Regional Filipino Craft Eats',
+      pricePerPerson: '₱350–₱550',
+      distanceNote: 'Don Pedro St, Poblacion, Makati',
+      mustOrderDish: 'Artisanal Longganisa Skewers & Bagnet Sinigang',
+      wittyPitch: 'Bawat subo may kwento; Filipino pride na hindi tinipid sa pampalasa.',
+      mapsSearchQuery: 'Alamat Filipino Pub Poblacion Makati',
+    },
+    {
+      id: 'mkt-4',
+      name: 'Japonesa Bistro',
+      cuisine: 'Japanese-Peruvian Nikkei Fusion',
+      pricePerPerson: '₱600–₱900',
+      distanceNote: 'Don Pedro St, Poblacion, Makati',
+      mustOrderDish: 'Lengua Katsu & Spicy Tuna Ceviche Rolls',
+      wittyPitch: 'Bagong sahod energy with stylish aesthetic photos for your IG stories.',
+      mapsSearchQuery: 'Japonesa Poblacion Makati',
+    },
+    {
+      id: 'mkt-5',
+      name: 'Mendokoro Ramenba Salcedo',
+      cuisine: 'Japanese Ramen',
+      pricePerPerson: '₱480–₱650',
+      distanceNote: 'V.A. Rufino St, Salcedo Village, Makati',
+      mustOrderDish: 'Tantanmen & Gyoza Combo',
+      wittyPitch: 'Ang lunas sa maulang hapon sa Makati CBD.',
+      mapsSearchQuery: 'Mendokoro Ramenba Salcedo Makati',
+    },
+  ],
+}
+
+export function getSampleSpots(location: string): Restaurant[] {
+  const loc = location.toLowerCase()
+  if (loc.includes('bgc') || loc.includes('bonifacio') || loc.includes('taguig')) {
+    return DEMO_RESTAURANTS_MAP.bgc
+  }
+  if (loc.includes('makati') || loc.includes('poblacion') || loc.includes('salcedo') || loc.includes('legazpi')) {
+    return DEMO_RESTAURANTS_MAP.makati
+  }
+  return DEMO_RESTAURANTS_MAP.default
+}

@@ -24,58 +24,22 @@ export interface RoomState {
   lastUpdated: number
 }
 
-const FIREBASE_CONFIG_STORAGE_KEY = 'hungrybuseng_firebase_config'
-
-export interface CustomFirebaseConfig {
-  apiKey?: string
-  authDomain?: string
-  databaseURL?: string
-  projectId?: string
-  storageBucket?: string
-  messagingSenderId?: string
-  appId?: string
-}
-
-export function getStoredFirebaseConfig(): CustomFirebaseConfig | null {
-  try {
-    const raw = localStorage.getItem(FIREBASE_CONFIG_STORAGE_KEY)
-    if (raw) return JSON.parse(raw)
-  } catch {
-    // ignore
-  }
-
-  // Fallback to Vite env
-  const envDbUrl = import.meta.env.VITE_FIREBASE_DATABASE_URL
-  const envApiKey = import.meta.env.VITE_FIREBASE_API_KEY
-  const envProjectId = import.meta.env.VITE_FIREBASE_PROJECT_ID
-
-  if (envDbUrl && envApiKey && envProjectId) {
-    return {
-      apiKey: envApiKey,
-      databaseURL: envDbUrl,
-      projectId: envProjectId,
-      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || `${envProjectId}.firebaseapp.com`,
-      appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
-    }
-  }
-
-  return null
-}
-
-export function setStoredFirebaseConfig(config: CustomFirebaseConfig | null): void {
-  if (!config) {
-    localStorage.removeItem(FIREBASE_CONFIG_STORAGE_KEY)
-  } else {
-    localStorage.setItem(FIREBASE_CONFIG_STORAGE_KEY, JSON.stringify(config))
-  }
+// Internal Firebase RTDB Configuration (handled completely in code / env, never shown to user)
+const INTERNAL_FIREBASE_CONFIG = {
+  apiKey: (import.meta.env.VITE_FIREBASE_API_KEY as string | undefined) || '',
+  databaseURL: (import.meta.env.VITE_FIREBASE_DATABASE_URL as string | undefined) || '',
+  projectId: (import.meta.env.VITE_FIREBASE_PROJECT_ID as string | undefined) || 'hungrybuseng-live',
+  authDomain:
+    (import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string | undefined) ||
+    'hungrybuseng-live.firebaseapp.com',
+  appId: (import.meta.env.VITE_FIREBASE_APP_ID as string | undefined) || '',
 }
 
 let firebaseApp: FirebaseApp | null = null
 let rtdb: Database | null = null
 
 function getRtdb(): Database | null {
-  const config = getStoredFirebaseConfig()
-  if (!config?.databaseURL || !config?.apiKey) {
+  if (!INTERNAL_FIREBASE_CONFIG.databaseURL || !INTERNAL_FIREBASE_CONFIG.apiKey) {
     return null
   }
 
@@ -85,7 +49,7 @@ function getRtdb(): Database | null {
       if (apps.length > 0) {
         firebaseApp = apps[0]
       } else {
-        firebaseApp = initializeApp(config)
+        firebaseApp = initializeApp(INTERNAL_FIREBASE_CONFIG)
       }
     }
     if (!rtdb && firebaseApp) {
@@ -93,15 +57,16 @@ function getRtdb(): Database | null {
     }
     return rtdb
   } catch (err) {
-    console.warn('Firebase RTDB init error:', err)
+    console.warn('Firebase RTDB auto-init notice:', err)
     return null
   }
 }
 
-// In-memory / BroadcastChannel fallback for local multi-tab testing if no remote DB is connected
-const localChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window
-  ? new BroadcastChannel('hungrybuseng_rooms')
-  : null
+// Transparent multi-tab / local network fallback relay
+const localChannel =
+  typeof window !== 'undefined' && 'BroadcastChannel' in window
+    ? new BroadcastChannel('hungrybuseng_rooms')
+    : null
 
 const localRoomsStore = new Map<string, RoomState>()
 
@@ -149,7 +114,10 @@ export async function createRoom(
   return initialState
 }
 
-export async function joinRoom(roomCode: string, participantName: string): Promise<RoomState | null> {
+export async function joinRoom(
+  roomCode: string,
+  participantName: string
+): Promise<RoomState | null> {
   const db = getRtdb()
   let current: RoomState | null = null
 
@@ -206,7 +174,6 @@ export function subscribeToRoom(
     })
   }
 
-  // Fallback listener via BroadcastChannel
   const handleMessage = (event: MessageEvent) => {
     if (event.data?.type === 'UPDATE_ROOM' && event.data.state?.roomCode === roomCode) {
       onUpdate(event.data.state)
@@ -215,7 +182,6 @@ export function subscribeToRoom(
 
   localChannel?.addEventListener('message', handleMessage)
 
-  // Send current state if available
   const existing = localRoomsStore.get(roomCode)
   if (existing) {
     setTimeout(() => onUpdate(existing), 0)
@@ -226,7 +192,10 @@ export function subscribeToRoom(
   }
 }
 
-export async function updateRoom(roomCode: string, partial: Partial<RoomState>): Promise<void> {
+export async function updateRoom(
+  roomCode: string,
+  partial: Partial<RoomState>
+): Promise<void> {
   const db = getRtdb()
   const now = Date.now()
 

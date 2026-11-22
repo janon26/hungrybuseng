@@ -24,14 +24,14 @@ export interface RoomState {
   lastUpdated: number
 }
 
-// Internal Firebase RTDB Configuration (handled completely in code / env, never shown to user)
+// Internal Firebase RTDB Configuration — loaded from environment variables only.
+// For local dev: copy .env.example → .env.local and fill in your values.
+// For deployment (Vercel/Netlify): set these as env vars in the platform dashboard.
 const INTERNAL_FIREBASE_CONFIG = {
   apiKey: (import.meta.env.VITE_FIREBASE_API_KEY as string | undefined) || '',
   databaseURL: (import.meta.env.VITE_FIREBASE_DATABASE_URL as string | undefined) || '',
-  projectId: (import.meta.env.VITE_FIREBASE_PROJECT_ID as string | undefined) || 'hungrybuseng-live',
-  authDomain:
-    (import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string | undefined) ||
-    'hungrybuseng-live.firebaseapp.com',
+  projectId: (import.meta.env.VITE_FIREBASE_PROJECT_ID as string | undefined) || '',
+  authDomain: (import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string | undefined) || '',
   appId: (import.meta.env.VITE_FIREBASE_APP_ID as string | undefined) || '',
 }
 
